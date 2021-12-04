@@ -11,9 +11,11 @@ home = os.path.expandvars("$HOME")
 cwd = Path(__file__).parent.absolute()
 
 """
+PT I
 Count the number of times a depth measurement increases from the previous measurement.
 How many measurements are larger than the previous measurement?
 """
+
 
 # QA
 # 7 measurements that are larger than the previous measurement
@@ -32,3 +34,14 @@ with open(f"{cwd}/input.txt", "r") as f:
     # ic(s.diff())
     pos_measures = df[df > df.shift()]
     ic(pos_measures.count())
+
+
+"""
+PT II
+Count the number of times the sum of measurements in this sliding window
+increases from the previous sum. So, compare A with B, then compare B with C,
+then C with D, and so on. Stop when there aren't enough measurements left to
+create a new three-measurement sum.
+How many sums are larger than the previous sum?
+"""
+
