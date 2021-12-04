@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-# SOURCES:
-
 import numpy as np
 import pandas as pd
 import os
@@ -19,17 +17,18 @@ How many measurements are larger than the previous measurement?
 
 # QA
 # 7 measurements that are larger than the previous measurement
-test = ['199', '200', '208', '210', '200', '207', '240', '269', '260', '263']
-nums = [int(i) for i in test]
-df = pd.Series(nums)
-ic(df.diff())
-df_list = df.values.tolist()
-ic(df_list)
+# test = ['199', '200', '208', '210', '200', '207', '240', '269', '260', '263']
+# nums = [int(i) for i in test]
+# df = pd.Series(data=nums, dtype=np.int64, index=range(len(nums)))
+# pos_measures = df[df > df.shift()]
+# print(pos_measures.count())
 
-# with open(f"{cwd}/input.txt", "r") as f:
-#     lines = f.readlines()
-#     ini_list = np.array(lines)
-#     # ic("intial list: ", str(ini_list))
-#     ini_list = [int(i) for i in ini_list]   # convert to int
-#     s = pd.Series(ini_list)
-#     ic(s.diff())
+with open(f"{cwd}/input.txt", "r") as f:
+    lines = f.readlines()
+    ini_list = np.array(lines)
+    # ic("intial list: ", str(ini_list))
+    ini_list = [int(i) for i in ini_list]   # convert to int
+    df = pd.Series(data=ini_list, dtype=np.int64, index=range(len(ini_list)))
+    # ic(s.diff())
+    pos_measures = df[df > df.shift()]
+    ic(pos_measures.count())

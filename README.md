@@ -7,6 +7,6 @@ For more info: [Advent of Code site](http://adventofcode.com/)
 
 ## TODO
 * Poetry usage
-* Solve sonar sweep
+* ~~Solve sonar sweep~~
 * Dockerfile
 * Keep going
