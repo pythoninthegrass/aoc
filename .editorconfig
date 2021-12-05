@@ -1,0 +1,17 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Unix-style newlines and whitespace cleanup
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# general formatting
+[*.{go,sh,bash,zsh}]
+indent_style = tab
+indent_size = 4
+
+# python
+[*.py]
+indent_style = space
