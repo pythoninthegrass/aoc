@@ -22,3 +22,4 @@ charset = utf-8
 # python
 [*.py]
 indent_style = space
+indent_size = 4
