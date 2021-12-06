@@ -33,6 +33,7 @@ For more info: [Advent of Code site](http://adventofcode.com/)
 # ~/.vscode/extensions/ms-python.python-*/pythonFiles/lib/python/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_resolver.py
 MAX_ITEMS_TO_HANDLE = 1000
 ```
+[Visual Studio Code - Python - List Index Limit Max 300 - Debugger - Stack Overflow](https://stackoverflow.com/questions/56324745/visual-studio-code-python-list-index-limit-max-300-debugger)
 
 ## TODO
 * Poetry usage
