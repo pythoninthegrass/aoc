@@ -27,6 +27,13 @@ For more info: [Advent of Code site](http://adventofcode.com/)
     exit
     ```
 
+## Debugging
+* Raise cap of List Index Limit Max from 300 via
+```bash
+# ~/.vscode/extensions/ms-python.python-*/pythonFiles/lib/python/debugpy/_vendored/pydevd/_pydevd_bundle/pydevd_resolver.py
+MAX_ITEMS_TO_HANDLE = 1000
+```
+
 ## TODO
 * Poetry usage
 * ~~Dockerfile~~
