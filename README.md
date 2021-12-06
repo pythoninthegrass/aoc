@@ -5,7 +5,29 @@ Here a few entries to the Advent of Code challenge, which is a coding challenge 
 
 For more info: [Advent of Code site](http://adventofcode.com/)
 
+## Usage
+* Poetry
+    * TODO
+* Docker
+    ```bash
+    # move to repo directory
+    cd aoc
+
+    # build image w/Dockerfile
+    docker build -t runner .
+
+    # run default bash entrypoint
+    docker run -it -v $(pwd):/home/appuser/app runner
+
+    # run a script w/in container
+    cd 01_sonar_sweep
+    python sonar_sweep.py
+
+    # stop container
+    exit
+    ```
+
 ## TODO
 * Poetry usage
-* Dockerfile
+* ~~Dockerfile~~
 * Keep going
