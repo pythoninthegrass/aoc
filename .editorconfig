@@ -20,7 +20,7 @@ indent_style = tab
 indent_size = 4
 
 # Set default charset
-[*.{js,py}]
+[*.{html,xml,js,css,py}]
 charset = utf-8
 
 # python
