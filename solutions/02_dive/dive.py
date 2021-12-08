@@ -32,40 +32,53 @@ final horizontal position by your final depth?
 """
 
 
+def get_data():
+    try:
+        formatted_file = Path(cwd / "formatted_input.txt")
+        if os.path.exists(formatted_file) and os.path.getsize(formatted_file) > 0:
+            with open(f"{cwd}/formatted_input.txt", 'r') as data:
+                ic(data)
+                return data.read().splitlines()
+        else:
+            with open(f"{cwd}/input.txt", 'r') as data:
+                output = open(formatted_file, 'w')
+                output.write(formatted_file, str(data))
+    except Exception as e:
+        print(f"Error: {e}")
+
+
 class MoveItMoveIt:
     def __init__(self):
         self.pos = 0
         self.depth = 0
 
     def move(self, cmd):
-        if cmd[0] == "forward":
+        if cmd == "forward":
             self.pos += int(cmd[1])
-        elif cmd[0] == "down":
+        elif cmd == "down":
             self.depth += int(cmd[1])
-        elif cmd[0] == "up":
+        elif cmd == "up":
             self.depth -= int(cmd[1])
         # else:
         #     raise Exception("Unknown command")
         return self.pos, self.depth
 
 
-def get_pos(cmds):
+def get_pos(direction):
     m = MoveItMoveIt()
-    for cmd in cmds:
-        m.move(cmd)
+    for item in direction:
+        m.move(item)
     return int(m.pos * m.depth)
 
 
-# TODO: `get_pos` is null; try list comp on num to get pos
-with open(f"{cwd}/input.txt", "r") as f:
-    lines = f.readlines()
-    ini_list = np.array(lines)
-    ini_list = [i for i in ini_list]
-    for i in ini_list:
-        cmd = str(i)
-        ic(cmd)
-        # num = str(i.rsplit(' ', 1)[1]).strip()    # 4
-        num = str(i.strip().split(' ', 1))          # "['forward', '4']"
-        ic(num)
-        ic(get_pos(i))
-    # df = pd.Series(data=ini_list, dtype=np.int64, index=range(len(ini_list)))
+# TODO: `get_pos` is null; try list comp on times to get pos
+if __name__ == "__main__":
+    for item in get_data():
+        item = str(item).strip()
+        ic(item)
+        print(get_pos(item))
+        # times = str(item.rsplit(' ', 1)[1]).strip()    # 4
+        # # times = str(item.strip().split(' ', 1))          # "['forward', '4']"
+        # ic(times)
+        # print(f"{item} -> {get_pos(str(item))}")
+        # # df = pd.Series(data=ini_list, dtype=np.int64, index=range(len(ini_list)))
