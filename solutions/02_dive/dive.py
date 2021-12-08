@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+# import feather
 # import numpy as np
 import pandas as pd
 import os
@@ -45,7 +46,8 @@ def get_raw_data(file):
 
 def get_formatted_data(file):
     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.expand_frame_repr', False):
-        df = pd.read_csv(file)
+        # df = pd.read_csv(file)
+        df = pd.read_feather(file)
         # print(df.to_string(index=False))
         return df
 
@@ -53,7 +55,8 @@ def get_formatted_data(file):
 def write_formatted_data(data, file):
     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.expand_frame_repr', False):
         df = pd.DataFrame(data, columns=['direction', 'steps'])
-        df.to_csv(file, index=False)
+        # df.to_csv(file, index=False)
+        df.to_feather(file)
         # print(df.to_string(index=False))
         return df
 
@@ -62,6 +65,7 @@ class MoveItMoveIt:
         self.pos = 0
         self.depth = 0
 
+    # TODO: feather regression: `TypeError: unsupported operand type(s) for +=: 'int' and 'str'`
     def move(self, direction, steps):
         if direction == 'forward':
             self.pos += steps
@@ -82,11 +86,11 @@ def get_pos(direction, steps):
     return m.pos, m.depth
     # return int(m.pos * m.depth)
 
-
+# TODO: QA feather file
 # TODO: now have pos and depth, need to multiply them
 if __name__ == "__main__":
     raw_file = Path(cwd / "input.txt")
-    formatted_file = Path(cwd / "formatted_input.csv")
+    formatted_file = Path(cwd / "formatted_input.feather")
     if check_file(formatted_file):
         raw_data = get_raw_data(raw_file)
         raw_data = [i.split() for i in raw_data]
