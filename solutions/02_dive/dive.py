@@ -56,7 +56,7 @@ def get_pos(cmds):
     return int(m.pos * m.depth)
 
 
-# TODO: `get_pos` is null
+# TODO: `get_pos` is null; try list comp on num to get pos
 with open(f"{cwd}/input.txt", "r") as f:
     lines = f.readlines()
     ini_list = np.array(lines)
@@ -64,7 +64,8 @@ with open(f"{cwd}/input.txt", "r") as f:
     for i in ini_list:
         cmd = str(i)
         ic(cmd)
-        num = str(i.rsplit(' ', 1)[1]).strip()
+        # num = str(i.rsplit(' ', 1)[1]).strip()    # 4
+        num = str(i.strip().split(' ', 1))          # "['forward', '4']"
         ic(num)
         ic(get_pos(i))
     # df = pd.Series(data=ini_list, dtype=np.int64, index=range(len(ini_list)))
