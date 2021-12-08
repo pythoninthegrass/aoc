@@ -47,7 +47,7 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Copy user code into application code
-COPY --chown=appuser:appuser . /home/appuser/app
+COPY --chown=appuser:appuser solutions /home/appuser/app
 
 WORKDIR /home/appuser/app
 
