@@ -46,8 +46,7 @@ def get_raw_data(file):
 
 def get_formatted_data(file):
     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.expand_frame_repr', False):
-        # df = pd.read_csv(file)
-        df = pd.read_feather(file)
+        df = pd.read_csv(file)
         # print(df.to_string(index=False))
         return df
 
@@ -55,8 +54,7 @@ def get_formatted_data(file):
 def write_formatted_data(data, file):
     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.expand_frame_repr', False):
         df = pd.DataFrame(data, columns=['direction', 'steps'])
-        # df.to_csv(file, index=False)
-        df.to_feather(file)
+        df.to_csv(file, index=False)
         # print(df.to_string(index=False))
         return df
 
@@ -65,7 +63,7 @@ class MoveItMoveIt:
         self.pos = 0
         self.depth = 0
 
-    # TODO: feather regression: `TypeError: unsupported operand type(s) for +=: 'int' and 'str'`
+
     def move(self, direction, steps):
         if direction == 'forward':
             self.pos += steps
@@ -73,24 +71,16 @@ class MoveItMoveIt:
             self.depth += steps
         elif direction == "up":
             self.depth -= steps
-        # else:
-        #     raise Exception("Unknown command")
         return self.pos, self.depth
 
 
-def get_pos(direction, steps):
-    m = MoveItMoveIt()
-    for item in range(len(direction)):
-        m.move(direction, steps)
+    def get_pos(self):
+        return self.pos, self.depth
 
-    return m.pos, m.depth
-    # return int(m.pos * m.depth)
 
-# TODO: QA feather file
-# TODO: now have pos and depth, need to multiply them
 if __name__ == "__main__":
     raw_file = Path(cwd / "input.txt")
-    formatted_file = Path(cwd / "formatted_input.feather")
+    formatted_file = Path(cwd / "input.csv")
     if check_file(formatted_file):
         raw_data = get_raw_data(raw_file)
         raw_data = [i.split() for i in raw_data]
@@ -99,9 +89,9 @@ if __name__ == "__main__":
     df = get_formatted_data(formatted_file)
     ic(df)
 
+    m = MoveItMoveIt()
     for item, row in df.iterrows():
-        # ic(row['direction'], row['steps'])
-        pos = get_pos(row['direction'], row['steps'])
-        ic(pos)
-        # pos_depth = pos[0] * pos[1]
-        # ic(pos_depth)
+        m.move(row['direction'], row['steps'])
+
+    direction, depth = m.get_pos()
+    ic(direction * depth)
