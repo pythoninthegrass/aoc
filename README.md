@@ -38,4 +38,5 @@ MAX_ITEMS_TO_HANDLE = 1000
 ## TODO
 * Poetry usage
 * ~~Dockerfile~~
+* Replace csv w/[feather](https://towardsdatascience.com/stop-using-csvs-for-storage-this-file-format-is-150-times-faster-158bd322074e)
 * Keep going
