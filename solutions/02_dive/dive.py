@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import numpy as np
+# import numpy as np
 import pandas as pd
 import os
 from pathlib import Path
@@ -32,53 +32,72 @@ final horizontal position by your final depth?
 """
 
 
-def get_data():
-    try:
-        formatted_file = Path(cwd / "formatted_input.txt")
-        if os.path.exists(formatted_file) and os.path.getsize(formatted_file) > 0:
-            with open(f"{cwd}/formatted_input.txt", 'r') as data:
-                ic(data)
-                return data.read().splitlines()
-        else:
-            with open(f"{cwd}/input.txt", 'r') as data:
-                output = open(formatted_file, 'w')
-                output.write(formatted_file, str(data))
-    except Exception as e:
-        print(f"Error: {e}")
+def check_file(file):
+    if not os.path.exists(file) or not os.path.getsize(file) > 0:
+        print(f"File {file} does not exist or is empty")
+        return True
 
+
+def get_raw_data(file):
+    with open(file, 'r') as f:
+        return f.readlines()
+
+
+def get_formatted_data(file):
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.expand_frame_repr', False):
+        df = pd.read_csv(file)
+        # print(df.to_string(index=False))
+        return df
+
+
+def write_formatted_data(data, file):
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.expand_frame_repr', False):
+        df = pd.DataFrame(data, columns=['direction', 'steps'])
+        df.to_csv(file, index=False)
+        # print(df.to_string(index=False))
+        return df
 
 class MoveItMoveIt:
     def __init__(self):
         self.pos = 0
         self.depth = 0
 
-    def move(self, cmd):
-        if cmd == "forward":
-            self.pos += int(cmd[1])
-        elif cmd == "down":
-            self.depth += int(cmd[1])
-        elif cmd == "up":
-            self.depth -= int(cmd[1])
+    def move(self, direction, steps):
+        if direction == 'forward':
+            self.pos += steps
+        elif direction == "down":
+            self.depth += steps
+        elif direction == "up":
+            self.depth -= steps
         # else:
         #     raise Exception("Unknown command")
         return self.pos, self.depth
 
 
-def get_pos(direction):
+def get_pos(direction, steps):
     m = MoveItMoveIt()
-    for item in direction:
-        m.move(item)
-    return int(m.pos * m.depth)
+    for item in range(len(direction)):
+        m.move(direction, steps)
+
+    return m.pos, m.depth
+    # return int(m.pos * m.depth)
 
 
-# TODO: `get_pos` is null; try list comp on times to get pos
+# TODO: now have pos and depth, need to multiply them
 if __name__ == "__main__":
-    for item in get_data():
-        item = str(item).strip()
-        ic(item)
-        print(get_pos(item))
-        # times = str(item.rsplit(' ', 1)[1]).strip()    # 4
-        # # times = str(item.strip().split(' ', 1))          # "['forward', '4']"
-        # ic(times)
-        # print(f"{item} -> {get_pos(str(item))}")
-        # # df = pd.Series(data=ini_list, dtype=np.int64, index=range(len(ini_list)))
+    raw_file = Path(cwd / "input.txt")
+    formatted_file = Path(cwd / "formatted_input.csv")
+    if check_file(formatted_file):
+        raw_data = get_raw_data(raw_file)
+        raw_data = [i.split() for i in raw_data]
+        write_formatted_data(raw_data, formatted_file)
+
+    df = get_formatted_data(formatted_file)
+    ic(df)
+
+    for item, row in df.iterrows():
+        # ic(row['direction'], row['steps'])
+        pos = get_pos(row['direction'], row['steps'])
+        ic(pos)
+        # pos_depth = pos[0] * pos[1]
+        # ic(pos_depth)
