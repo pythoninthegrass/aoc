@@ -17,7 +17,7 @@ For more info: [Advent of Code site](http://adventofcode.com/)
     docker build -t runner .
 
     # run default bash entrypoint
-    docker run -it -v $(pwd):/home/appuser/app runner
+    docker run -it --rm -v $(pwd):/home/appuser/app runner
 
     # run a script w/in container
     cd 01_sonar_sweep
