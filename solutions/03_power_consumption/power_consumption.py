@@ -14,6 +14,11 @@ ic.configureOutput(includeContext=True)
 
 """
 PT I
+You need to use the binary numbers in the diagnostic report to generate two new binary numbers (called the gamma rate and the epsilon rate). The power consumption can then be found by multiplying the gamma rate by the epsilon rate.
+
+Each bit in the gamma rate can be determined by finding the most common bit in the corresponding position of all numbers in the diagnostic report.
+
+Use the binary numbers in your diagnostic report to calculate the gamma rate and epsilon rate, then multiply them together. What is the power consumption of the submarine? (Be sure to represent your answer in decimal, not binary.)
 """
 
 
@@ -28,17 +33,17 @@ def get_raw_data(file):
         return f.readlines()
 
 
-def format_data(data):
-    lst = []
-    for d in data:
-        lst.append(d.strip())
-
-    return lst
+def format_data(file):
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.expand_frame_repr', False):
+        df = pd.read_csv(file, dtype=str)
+        df = df.to_string(index=False)
+    return df
 
 # TODO: calculate most common bit/least common bit (binary)
 if __name__ == "__main__":
     raw_file = Path(cwd / "example.txt")
     check_file(raw_file)
-    data = get_raw_data(raw_file)
-    formatted_file = format_data(data)
-    ic(formatted_file)
+    # data = get_raw_data(raw_file)
+    data = format_data(raw_file)
+    # ic(data)
+    print(data)
