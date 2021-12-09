@@ -3,7 +3,9 @@
 
 Here a few entries to the Advent of Code challenge, which is a coding challenge advent calendar created by Eric Wastl.
 
-For more info: [Advent of Code site](http://adventofcode.com/)
+[Semi-private leaderboard](https://adventofcode.com/2021/leaderboard/private/view/1755756) via code `1755756-b2d0233e`; security through obscurity or something like that.
+
+For more info: [Advent of Code site](http://adventofcode.com/). 
 
 ## Usage
 * Poetry
