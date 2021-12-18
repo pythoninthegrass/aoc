@@ -24,12 +24,12 @@ def get_raw_data(file):
         return f.readlines()
     """
     with open(f"{cwd}/input.txt", "r") as f:
-	    lines = f.readlines()
-	    ini_list = np.array(lines)
-	    # ic("intial list: ", str(ini_list))
-	    ini_list = [int(i) for i in ini_list]   # convert to int
-	    print(ini_list)
-	"""
+            lines = f.readlines()
+            ini_list = np.array(lines)
+            # ic("intial list: ", str(ini_list))
+            ini_list = [int(i) for i in ini_list]   # convert to int
+            print(ini_list)
+        """
 
 
 def get_formatted_data(file):
@@ -53,9 +53,9 @@ class MoveItMoveIt:
         self.pos = 0
 
 
-	def move(self, steps):
-        if steps:
-            self.pos += steps
+        def move(self, steps):
+            if steps:
+                self.pos += steps
         return self.pos
 
 
@@ -70,23 +70,22 @@ class BlazeIt:
 
 
     def light_up(self, energy, flash):
-    	# First, the energy level of each octopus increases by 1
-		energy += 1
-    	
-    	# any octopus with an energy level greater than 9 flashes
-		if energy > 9:
-			self.flash
-			
-			# This increases the energy level of all adjacent octopuses by 1
-			energy += 1
+        # First, the energy level of each octopus increases by 1
+        energy += 1
 
-    	# If this causes an octopus to have an energy level greater than 9, it also flashes
-		if energy > 9:
-			self.flash
-		
-    		# Finally, any octopus that flashed during this step has its energy level set to 0, as it used all of its energy to flash.
-			self.energy = 0
-    	
+        # any octopus with an energy level greater than 9 flashes
+        if energy > 9:
+            self.flash
+        # This increases the energy level of all adjacent octopuses by 1
+             energy += 1
+
+        # If this causes an octopus to have an energy level greater than 9, it also flashes
+        if energy > 9:
+            self.flash
+
+        # Finally, any octopus that flashed during this step has its energy level set to 0, as it used all of its energy to flash.
+             self.energy = 0
+
         return self.energy, self.flash
 
 # TODO: parse sample input w/100 steps to test classes
