@@ -29,7 +29,7 @@ def get_raw_data(file):
             # ic("intial list: ", str(ini_list))
             ini_list = [int(i) for i in ini_list]   # convert to int
             print(ini_list)
-        """
+    """
 
 
 def get_formatted_data(file):
@@ -41,7 +41,7 @@ def get_formatted_data(file):
 
 def write_formatted_data(data, file):
     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.expand_frame_repr', False):
-        df = pd.DataFrame(data, columns=['direction', 'steps'])
+        df = pd.DataFrame(data, columns=['energy', 'steps'])
         df.to_csv(file, index=False)
         # print(df.to_string(index=False))
         return df
@@ -76,36 +76,72 @@ class BlazeIt:
         # any octopus with an energy level greater than 9 flashes
         if energy > 9:
             self.flash
-        # This increases the energy level of all adjacent octopuses by 1
-             energy += 1
+            energy += 1
 
         # If this causes an octopus to have an energy level greater than 9, it also flashes
         if energy > 9:
             self.flash
-
-        # Finally, any octopus that flashed during this step has its energy level set to 0, as it used all of its energy to flash.
-             self.energy = 0
+            self.energy = 0
 
         return self.energy, self.flash
 
-# TODO: parse sample input w/100 steps to test classes
+
 # Given the starting energy levels of the dumbo octopuses in your cavern, simulate 100 steps. How many total flashes are there after 100 steps?
 
+pre =  """
+5483143223
+2745854711
+5264556173
+6141336146
+6357385478
+4167524645
+2176841721
+6882881134
+4846848554
+5283751526
+"""
+
+post = """
+6594254334
+3856965822
+6375667284
+7252447257
+7468496589
+5278635756
+3287952832
+7993992245
+5957959665
+6394862637
+"""
+
+# TODO: commit; zip pre/post lines; calc diff; scale to 100 steps
+raw_pre = [i.split() for i in pre]
+raw_post = [i.split() for i in post]
 
 if __name__ == "__main__":
+    ic(pre)
+    ic(raw_pre)
+    ic(post)
+    ic(raw_post)
+    
+    """
     raw_file = Path(cwd / "input.txt")
     formatted_file = Path(cwd / "input.csv")
-    if check_file(formatted_file):
-        raw_data = get_raw_data(raw_file)
-        raw_data = [i.split() for i in raw_data]
-        write_formatted_data(raw_data, formatted_file)
-
-    df = get_formatted_data(formatted_file)
-    ic(df)
-
-    m = MoveItMoveIt()
-    for item, row in df.iterrows():
-        m.move(row['direction'], row['steps'])
-
-    direction, depth = m.get_pos()
-    ic(direction * depth)
+    try:
+        if check_file(formatted_file):
+            raw_data = get_raw_data(raw_file)
+            raw_data = [i.split() for i in raw_file]
+            write_formatted_data(raw_data, formatted_file)
+    
+            df = get_formatted_data(formatted_file)
+            ic(df)
+        
+            m = MoveItMoveIt()
+            for item, row in df.iterrows():
+                m.move(row['direction'], row['steps'])
+        
+            steps = m.get_pos()
+    except FileNotFoundError:
+        print(f"{formatted_file} not found. Exiting...")
+    """
+    
